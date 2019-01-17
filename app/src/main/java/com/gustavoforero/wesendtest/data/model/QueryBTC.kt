@@ -9,7 +9,7 @@ import java.util.*
 
 @Entity(tableName = "queriesBTC")
 data class QueryBTC(
-    @ColumnInfo(name = "rate") val rate: Double,
+    @ColumnInfo(name = "rate") val rate: String,
     @ColumnInfo(name = "atypical") val atypical: Int,
     @ColumnInfo(name = "date") val queryDate: String
 ) {

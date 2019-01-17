@@ -22,26 +22,25 @@ object OfferToQueryMapper : Function<List<Offer>?, QueryBTC> {
         val values = ArrayList<Double>()
 
         for (dataOffer in offers) {
-            values.add(dataOffer.temp_price.toDouble())
+            values.add(dataOffer.temp_price_usd.toDouble())
         }
         val numOutliers = getNumOfOutliers(values)
-        val rate = getRate(values)
-        return QueryBTC(rate, numOutliers, Date().toString())
+        val rate = getRate(values, numOutliers)
+        val format = NumberFormat.getCurrencyInstance(Locale.US)
+        return QueryBTC(format.format(rate), numOutliers.size, Date().toString())
     }
 
 
-    private fun getRate(allNumbers: List<Double>): Double {
+    private fun getRate(allNumbers: List<Double>, outliers: List<Double>): Double {
         var sum = 0.0
         for (number in allNumbers) {
-            sum += number
+            if (!outliers.contains(number))
+                sum += number
         }
         return sum / allNumbers.size
     }
 
-    private fun getNumOfOutliers(allNumbers: List<Double>): Int {
-        if (allNumbers.isEmpty()) {
-            return 0
-        }
+    private fun getNumOfOutliers(allNumbers: List<Double>): List<Double> {
         val commonValues = ArrayList<Double>()
         val outliersValues = ArrayList<Double>()
 
@@ -65,7 +64,7 @@ object OfferToQueryMapper : Function<List<Offer>?, QueryBTC> {
             }
         }
 
-        return outliersValues.size
+        return outliersValues
     }
 
 
