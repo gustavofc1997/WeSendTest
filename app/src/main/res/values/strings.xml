@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">WeSendTest</string>
+
+    <string name="title_home_history">Queries History</string>
+    <string name="title_btc_offer">BTC Current Rate</string>
+    <string name="lab_item_rate">Rate : %s</string>
+    <string name="lab_item_date">Date: %s</string>
+    <string name="lab_item_atypical">Atypical data : %s</string>
+
+</resources>
