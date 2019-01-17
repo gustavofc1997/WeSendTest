@@ -7,4 +7,6 @@
     <string name="lab_item_date">Date: %s</string>
     <string name="lab_item_atypical">Atypical data : %s</string>
 
+    <string name="msg_no_queries">There is not queries yet</string>
+
 </resources>

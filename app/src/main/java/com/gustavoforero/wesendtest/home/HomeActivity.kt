@@ -2,6 +2,7 @@ package com.gustavoforero.wesendtest.home
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import com.gustavoforero.wesendtest.R
 import com.gustavoforero.wesendtest.btcoffers.BTCOffersActivity
 import com.gustavoforero.wesendtest.data.model.QueryBTC
@@ -34,6 +35,8 @@ class HomeActivity : AppCompatActivity(), StoreSubscriber<QueryListBTCState?> {
 
     override fun newState(state: QueryListBTCState?) {
         state?.queryList?.let {
+            if (it.isNotEmpty())
+                tvNoQueries.visibility = View.GONE
             initializeAdapter(it)
         }
     }

@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.activity_btc_offer.*
 class BTCOffersActivity : AppCompatActivity(), StoreSubscriber<BTCOfferState?> {
 
 
+    var mCurrentOffer: QueryBTC? = null
     lateinit var mActivityBinding: ActivityBtcOfferBinding
 
 
@@ -44,15 +45,20 @@ class BTCOffersActivity : AppCompatActivity(), StoreSubscriber<BTCOfferState?> {
     }
 
     override fun newState(state: BTCOfferState?) {
+
         state?.offer?.let {
-            pbRate.visibility = View.GONE
-            mActivityBinding.offer = it
+            if (mCurrentOffer == null) {
+                mCurrentOffer = it
+                pbRate.visibility = View.GONE
+                mActivityBinding.offer = it
+                saveQuery()
+            }
         }
     }
 
 
-    private fun saveQuery(query: QueryBTC) {
-       store.dispatch(AddQuery(query))
+    private fun saveQuery() {
+        store.dispatch(AddQuery(mCurrentOffer))
 
     }
 
@@ -65,10 +71,10 @@ class BTCOffersActivity : AppCompatActivity(), StoreSubscriber<BTCOfferState?> {
 
 
     private fun initViews() {
+        pbRate.visibility = View.VISIBLE
         title = getString(R.string.title_btc_offer)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        pbRate.visibility = View.VISIBLE
         store.dispatch(SearchBTCOffersAction())
 
     }

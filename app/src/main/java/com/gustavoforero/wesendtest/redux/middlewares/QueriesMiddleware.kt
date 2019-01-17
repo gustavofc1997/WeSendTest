@@ -25,5 +25,5 @@ private fun getQueriesList(dispatch: DispatchFunction) {
         list?.apply {
             dispatch(ShowQueryHistory(list))
         }
-    }
+    } 
 }

@@ -21,7 +21,7 @@ internal val databaseMiddleWare: Middleware<AppState> = { dispatch, _ ->
     }
 }
 
-private fun insertBTCQuery(queryBTC: QueryBTC?, dispatch: DispatchFunction) {
+fun insertBTCQuery(queryBTC: QueryBTC?, dispatch: DispatchFunction) {
     BTCQueryHelper.insertQueryAsync(queryBTC) {
         displayAllQueries(dispatch)
     }
